@@ -247,3 +247,7 @@ ModelManifest.xml
 *.csproj
 *.sln
 *.cs
+/w11-php/w11-php/.buildpath
+*.project
+*.prefs
+/w11-php/w11-php/.settings/org.eclipse.wst.common.project.facet.core.xml
