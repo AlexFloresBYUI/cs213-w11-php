@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CS 213 Week 12 e-commerce</title>
+      <script type="text/javascript" src="213.12.PonderProblem.js"></script>
+      <link rel="stylesheet" type="text/css" href="213.12.PonderProblem.css">
+    <style type="text/css">
+	  
+          
+    </style>
+  </head>
+  
+  <body onload="deleteAllCookies()">
+    
+    <div tabindex="0"  id="checkout">
+    <!--Personal Information-->
+    
+    <form action="213.12.PonderProblem.php" id="form1" onSubmit="submitOrder()" onReset="resetOrder()" method="post">
+      <h2>Shipping Information</h2>
+      <p>Please fill shipping information: </p>
+      <table>
+        <!-- Name -->
+        <tr>
+	  <td><span id="firstName">First Name:</span></td>
+          <td>
+            <input name="firstName" oninput="validateName(this.value,'firstName')" size="19"/>
+          </td>
+          <td><span id="firstNameValidation" style='color:red'>Invalid First Name</span></td>
+        </tr>
+        <tr>
+          <td><span id="lastName">Last Name:</span></td>
+	  <td>
+            <input name="lastName" oninput="validateName(this.value,'lastName')" size="19"/>
+          </td>
+          <td><span id="lastNameValidation" style='color:red'>Invalid Last Name</span></td>
+        </tr>
+	  <!--Address-->
+	<tr>
+	  <td><span id="address">Address:</span></td>
+          <td>
+            <input name="address" oninput="validateAddress(this.value,'address')" size="26"/>
+          </td>
+          <td><span id="addressValidation" style='color:red'>Invalid Address</span></td>
+        </tr>
+	<!--State-->
+	<tr>
+          <td><span id="state">State:</span></td>
+          <td>
+            <input name="state" oninput="validateAbb(this.value,'state')" size="1"/>
+          </td>
+          <td><span id="stateValidation" style='color:red'>Invalid State</span></td>
+        </tr>
+	<!--Zip Code-->
+	<tr>
+          <td><span id="zipcode">Zip code:</span></td>
+          <td>
+            <input name="zipcode" oninput="validateZipCode(this.value,'zipcode')" size="3"/>
+          </td>
+          <td><span id="zipcodeValidation" style='color:red'>Invalid Zip Code</span></td>
+        </tr>
+	<!--Phone number-->
+	<tr>
+	  <td><span id="phone">Phone Numbrer:</span></td>
+          <td>
+            <input name="phone" oninput="validatePhone(this.value,'phone')" size="10"/>
+          </td>
+          <td><span id="phoneValidation" style='color:red'>Invalid Phone Number</span></td>
+        </tr>
+      </table>
+	
+    <!--Shopping Information-->
+    <h2>Shoping cart</h2>
+    <p name="buyedItems" id="buyedItemsCart"></p>
+    <input type="hidden" name="itemsCount" id="itemsCount" value=""/>
+    <input type="hidden" name="items" id="items" value="" />
+    <input type="hidden" name="prices" id="prices" value="" />
+
+    <h2>Total amount:</h2>
+    <p>Your purchase order: </p>
+    <p name="totalAmount" id="totalAmount"></p>
+
+
+	
+    <h2>Payment Information</h2>
+    <p>Please indicate your payment information: </p>
+    <table>
+      <!-- Credit Card -->
+      <tr>
+        <td><label for="creditCardType">Credit Card:</label></td>
+        <td><select id="creditCardType" name="creditCardType">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="AmericanExpress">American Express</option>
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">MasterCard</option>
+          </select>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span id="creditCard">Credit Card Number:</span></td>
+        <td>
+          <input name="creditCardNumber" oninput="validateCreditCard(this.value,'creditCard')" size="19"/>
+        </td>
+        <td><span id="creditCardValidation" style='color:red'>Invalid Credit Card</span></td>
+      </tr>
+      <tr>
+        <td><span id="date">Expiration date: (mm/yyyy)</span></td>
+	<td>
+          <input name="expirationDate" oninput="validateDate(this.value,'date')" size="9"/>
+        </td>
+        <td><span id="dateValidation" style='color:red'>Invalid Date</span></td>
+      </tr>
+      </table>
+      <br>
+      <div id="buttons">
+        <input type="submit" value="Submit Order">
+        <input type="reset" value="Reset Order">
+        <button type="button" onClick="checkoutHide('checkout', 'shoppingPage')">Back to Shopping</button>
+      </div>
+    </form>
+    </div>
+      
+      <div class="navBar"> 
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href=""></a>Products</li>
+            <li><a href=""></a>Contact</li>
+            <li><a href=""></a>About Us</li>
+          </ul>
+      </div>
+    
+    <div id="sideBar">
+        <h1>Shopping List</h1>
+        <button type="button" onclick="checkoutShow('checkout', 'shoppingPage')">Checkout</button>
+        <p id="buyedItems"></p>
+        <p id="totalSide"></p>
+    </div> 
+    
+    <div id="shoppingPage">
+      <ul id="listItem">
+	<li id="listElement">
+	  <div class="sellerColumn">
+	    <img src="images/baldacci-7718-391841-1-product2.jpg" alt="" class="view-img">
+	    <div class="itemQuantity">
+              <select id="itemQuantity1">
+                <option value="0" disabled selected>Qty</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="shopButtton">
+	      <button onclick="buyitem('Baldacci model 7718, 39.99',
+                                        document.getElementById('itemQuantity1').value)" >Add to Cart</button>
+	    </div>
+	    <div class="sellerName">
+	      <h4>Baldacci</h4>
+	      <small>model 7718</small>
+	    </div>
+	    <div class="sellerPrice">
+	      <p>$39.99</p>
+	    </div>
+	  </div>
+	</li>
+	
+	<li>
+	  <div class="sellerColumn">
+	    <img src="images/christian-gallery-0369-503031-2-product2.jpg" alt="" class="view-img">
+	    <div class="itemQuantity">
+              <select id="itemQuantity2">
+                <option value="0" disabled selected>Qty</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="shopButtton">
+	      <button onclick="buyitem('Christian Gallery model 0369, 29.99', 
+                                        document.getElementById('itemQuantity2').value)" >Add to Cart</button>
+	    </div>
+	    <div class="sellerName">
+	      <h4>Christian Gallery</h4>
+	      <small>model 0369</small>
+	    </div>
+	    <div class="sellerPrice">
+	      <p>$29.99</p>
+	    </div>
+	  </div>
+	</li>
+	
+	<li>
+	  <div class="sellerColumn">
+	    <img src="images/kenneth-cole-0261-174421-2-product2.jpg" alt="" class="view-img">
+	    <div class="itemQuantity">
+              <select id="itemQuantity3">
+                <option value="0" disabled selected>Qty</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="shopButtton">
+	      <button onclick="buyitem('Kenneth cole model 0261, 44.99', 
+                                        document.getElementById('itemQuantity3').value)" >Add to Cart</button>
+	    </div>
+	    <div class="sellerName">
+	      <h4>Kenneth-cole</h4>
+	      <small>model 0261</small>
+	    </div>
+	    <div class="sellerPrice">
+	      <p>$44.99</p>
+	    </div>
+	  </div>  
+	</li>
+
+	<li>
+	  <div class="sellerColumn">
+	    <img src="images/paruno-2585-82129-2-product2.jpg" alt="" class="view-img">
+	    <div class="itemQuantity">
+              <select id="itemQuantity4">
+                <option value="0" disabled selected>Qty</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="shopButtton">
+	      <button onclick="buyitem('Paruno model 2585, 35.90', 
+                                        document.getElementById('itemQuantity4').value)" >Add to Cart</button>
+	    </div>
+	    <div class="sellerName">
+	      <h4>Paruno</h4>
+	      <small>model 2585</small>
+	    </div>
+	    <div class="sellerPrice">
+	      <p>$35.90</p>
+	    </div>
+	  </div>  
+	</li>
+        
+      </ul>                   
+    </div>
+  </body>
+</html>
